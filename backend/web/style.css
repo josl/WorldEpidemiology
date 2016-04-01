@@ -1,0 +1,81 @@
+.subunit.SCT { fill: #ddc; }
+.subunit.WLS { fill: #cdd; }
+.subunit.NIR { fill: #cdc; }
+.subunit.ENG { fill: #dcd; }
+
+.country.ESP { fill: #43cf09; stroke: #f00c0c;}
+.country.PR1 { fill: none; stroke: #162be7;}
+
+tr .host_row.grey{background-color:"#D3D3D3";}
+tr .host_row.light_green{background-color:"#A6D785";}
+tr .host_row.dark_green{background-color:"#006400";}
+
+.province.ESP-5853{ fill: #f114f1; }
+.province{ fill: none;}
+.subunit.IRL,
+.subunit-label.IRL {
+  display: none;
+}
+
+.subunit-boundary {
+  fill: none;
+  stroke: #777;
+  /*stroke-dasharray: 2,2;*/
+  stroke-linejoin: round;
+
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+
+}
+
+/*.subunit-boundary.IRL {
+  stroke: #aaa;
+}
+
+.subunit-label {
+  fill: #777;
+  fill-opacity: .5;
+  font-size: 20px;
+  font-weight: 300;
+  text-anchor: middle;
+}*/
+
+.place{
+  fill: none;
+}
+.place-label {
+  fill: rgb(166, 193, 175);
+  display: none;
+}
+
+.province-label {
+  fill: rgb(166, 193, 175);
+  display: none;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+svg {
+  background: #aec1e2;
+}
+
+.land {
+  fill: rgb(254, 39, 231);
+}
+
+.boundary {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+}

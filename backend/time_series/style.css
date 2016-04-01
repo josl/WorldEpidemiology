@@ -1,0 +1,19 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.point {
+  fill: steelblue;
+  stroke: #000;
+}
+
+.title {
+  font: bold 20px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
