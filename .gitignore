@@ -37,3 +37,7 @@ db
 # Libraries
 node_modules
 npm-debug.log
+
+# Production/Development
+docker-compose-prod.yml
+env

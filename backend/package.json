@@ -1,64 +1,66 @@
 {
-  "name": "topodb",
-  "version": "0.0.1",
-  "description": "Creation of geographical TopoJSON database based on shapefiles from Natural Earth",
-  "author": {
-    "name": "Jose Luis Bellod Cisneros",
-    "email": "bellod.cisneros@gmail.com",
-    "url": "https://github.com/josl"
-  },
-  "repository": "josl/topodb",
-  "license": "MIT",
-  "files": [
-    "index.js",
-    "cli.js"
-  ],
-  "keywords": [
-    "topodb",
-    "topojson",
-    "mongoDB"
-  ],
-  "dependencies": {
-    "bignumber.js": "^2.1.0",
-    "body-parser": "^1.14.1",
-    "brfs": "^1.4.1",
-    "bson": "^0.4.19",
-    "chai-json-equal": "0.0.1",
-    "d3": "^3.5.6",
-    "envify": "^3.4.0",
-    "express": "^4.13.3",
-    "filereader-stream": "^1.0.0",
-    "from2": "^2.1.0",
-    "kerberos": "0.0.17",
-    "lodash": "^3.10.1",
-    "meow": "^3.1.0",
-    "mongo-express": "^0.30.40",
-    "mongodb": "^2.1.14",
-    "mongodb-core": "^1.2.21",
-    "mongodb-es6": "^1.0.0",
-    "mongoose": "^4.4.10",
-    "readline2": "^1.0.1",
-    "request": "^2.67.0",
-    "resolve": "^1.1.6",
-    "rethinkdb": "^2.0.2",
-    "topojson": "^1.6.19"
-  },
-  "devDependencies": {
-    "connect-livereload": "^0.5.3",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-connect": "^0.10.1",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-nodeunit": "^0.4.1",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-mocha-cli": "^1.12.0",
-    "jshint-stylish": "^1.0.1",
-    "load-grunt-tasks": "^3.1.0",
-    "time-grunt": "^1.1.0"
-  },
-  "scripts": {
-    "test": "grunt"
-  },
-  "bin": {
-    "topodb": "cli.js"
-  }
+    "name": "topodb",
+    "version": "0.0.1",
+    "description": "Creation of geographical TopoJSON database based on shapefiles from Natural Earth",
+    "author": {
+        "name": "Jose Luis Bellod Cisneros",
+        "email": "bellod.cisneros@gmail.com",
+        "url": "https://github.com/josl"
+    },
+    "repository": "josl/topodb",
+    "license": "MIT",
+    "files": [
+        "index.js",
+        "cli.js"
+    ],
+    "keywords": [
+        "topodb",
+        "topojson",
+        "mongoDB"
+    ],
+    "dependencies": {
+        "bignumber.js": "^2.1.0",
+        "body-parser": "^1.14.1",
+        "brfs": "^1.4.1",
+        "bson": "^0.4.19",
+        "chai-json-equal": "0.0.1",
+        "d3": "^3.5.6",
+        "envify": "^3.4.0",
+        "express": "^4.13.3",
+        "filereader-stream": "^1.0.0",
+        "from2": "^2.1.0",
+        "grunt": "^0.4.5",
+        "kerberos": "0.0.17",
+        "lodash": "^3.10.1",
+        "meow": "^3.1.0",
+        "mongo-express": "^0.30.40",
+        "mongodb": "^2.1.14",
+        "mongodb-core": "^1.2.21",
+        "mongodb-es6": "^1.0.0",
+        "mongoose": "^4.4.10",
+        "readline2": "^1.0.1",
+        "request": "^2.67.0",
+        "resolve": "^1.1.6",
+        "rethinkdb": "^2.0.2",
+        "simple-statistics": "^1.0.1",
+        "topojson": "^1.6.19"
+    },
+    "devDependencies": {
+        "connect-livereload": "^0.5.3",
+        "grunt-cli": "^0.1.13",
+        "grunt-contrib-connect": "^0.10.1",
+        "grunt-contrib-jshint": "^0.11.0",
+        "grunt-contrib-nodeunit": "^0.4.1",
+        "grunt-contrib-watch": "^0.6.1",
+        "grunt-mocha-cli": "^1.12.0",
+        "jshint-stylish": "^1.0.1",
+        "load-grunt-tasks": "^3.1.0",
+        "time-grunt": "^1.1.0"
+    },
+    "scripts": {
+        "test": "grunt"
+    },
+    "bin": {
+        "topodb": "cli.js"
+    }
 }

@@ -3,6 +3,7 @@ geo_data
 noSQL_database
 mongodb
 node_modules
+backend/node_modules
 rethinkdb_data
 src
 test

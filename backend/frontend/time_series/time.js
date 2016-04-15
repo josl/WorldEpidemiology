@@ -23,34 +23,36 @@ var svg = d3.select("body")
 d3.json("/api/Spain", function (error, data) {
     console.log(data);
 
-
-
     // Coerce the data to numbers.
     data.forEach(function (d) {
         d.date = +d.date;
-        d['fertility_rate,_total_(births_per_woman)'] = +d['fertility_rate,_total_(births_per_woman)'];
+        console.log(d);
+        if ('SP-DYN-TFRT-IN' in d.attrs) {
+            d.data = +d.attrs['SP-DYN-TFRT-IN']['value'];
+            console.log(d.data, d.date);
+        }
     });
 
     // Compute the scales’ domains.
     x.domain(d3.extent(data, function (d) {
-            return d.date;
-        }))
-        .nice();
+        return d.date;
+    }))
+    .nice();
     y.domain(d3.extent(data, function (d) {
-            return d['fertility_rate,_total_(births_per_woman)'];
-        }))
-        .nice();
+        return d.data;
+    }))
+    .nice();
 
-        svg.append("text")
-            .attr("class", "title")
-            .attr("x", x(data[0].date))
-            .attr("y", y(1.6))
-            .text("Fertility Rate in Spain");
-            svg.append("text")
-                .attr("class", "title")
-                .attr("x", x(data[0].date))
-                .attr("y", y(1.5))
-                .text("(total births per woman)");
+    svg.append("text")
+        .attr("class", "title")
+        .attr("x", x(1961))
+        .attr("y", y(1.6))
+        .text("Fertility rate in Spain");
+    svg.append("text")
+        .attr("class", "title")
+        .attr("x", x(1961))
+        .attr("y", y(1.5))
+        .text("(total births per woman)");
 
 
     // Add the x-axis.
@@ -79,7 +81,8 @@ d3.json("/api/Spain", function (error, data) {
             return x(d.date);
         })
         .attr("cy", function (d) {
-            return y(d['fertility_rate,_total_(births_per_woman)']);
+            console.log(d.data);
+            return y(d.data);
         });
 
 });
