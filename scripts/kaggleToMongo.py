@@ -372,10 +372,10 @@ def step1():
 
 
 def step2():
-    client = MongoClient('mongodb://192.168.99.100:5999/')
+    # client = MongoClient('mongodb://192.168.99.100:5999/')
     data = pickle.load(open('attr_data/WDI/WDI_csv/data.pkl'))
-    db = client['topodb']
-    collection = db.WDI
+    # db = client['topodb']
+    # collection = db.WDI
     mongo_data = []
     for country in data:
         for year in data[country]:
@@ -391,9 +391,14 @@ def step2():
                 new_attr = attr.replace('.', '-')
                 sys.stdout.write('Country: ' + entry['id'] + ' # '+ attr + '\r')
                 entry['attrs'][new_attr] = data[country][year][attr]
-            # mongo_data.append(entry)
+            mongo_data.append(entry)
             # Push to mongodb!
-            collection.insert_one(entry)
+            # collection.insert_one(entry)
+
+    g = open('attr_data/WDI/WDI_csv/WDIJSON.json', 'w')
+    g.write(json.dumps(mongo_data))
+    g.close()
+
     # output = open('attr_data/WDI/WDI_csv/WDImongodata.pkl', 'wb')
     # # Pickle dictionary using protocol 0.
     # pickle.dump(mongo_data, output)
