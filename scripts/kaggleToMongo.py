@@ -411,4 +411,39 @@ def step2():
     #     print point
     #     break
 
-step2()
+def step3():
+    data = []
+    my_countries = {}
+    client = MongoClient('mongodb://192.168.99.100:5999/')
+    db = client['topodb']
+    collection = db.WDI_countries
+    indicators = {}
+    with open('/Volumes/WD_disk/world-development-indicators/Indicators.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            # if row['1960'] != '':
+            #     print row['1960']
+            # continue
+            data_point = {}
+            data_point['country-id'] = row['CountryCode']
+            data_point['country-name'] = row['CountryName']
+            data_point['attr-name'] = row['IndicatorName']
+            data_point['attr'] = row['IndicatorCode']
+            data_point['year'] = row['Year']
+            data_point['value'] = row['Value']
+            indicators[row['IndicatorCode']] = row['IndicatorName']
+            collection.insert_one(data_point)
+            # for year in years:
+            #     attr_value = row[year]
+            #     if row[year] == '':
+            #         continue
+            #     data_point['attr'] = {
+            #         'value': attr_value,
+            #         'name': row['Indicator Name']
+            #     }
+        collection.insert_many([{'code': k, 'name': v} for k, v in indicators.items()])
+step3()

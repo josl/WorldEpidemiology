@@ -20,6 +20,8 @@ var svg = d3.select("body")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+var attribute = 'SP-DYN-TFRT-IN';
+
 d3.json("/api/Spain", function (error, data) {
     console.log(data);
 
@@ -27,8 +29,8 @@ d3.json("/api/Spain", function (error, data) {
     data.forEach(function (d) {
         d.date = +d.date;
         console.log(d);
-        if ('SP-DYN-TFRT-IN' in d.attrs) {
-            d.data = +d.attrs['SP-DYN-TFRT-IN']['value'];
+        if (attribute in d.attrs) {
+            d.data = +d.attrs[attribute]['value'];
             console.log(d.data, d.date);
         }
     });
