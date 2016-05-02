@@ -40,4 +40,4 @@ npm-debug.log
 
 # Production/Development
 docker-compose-prod.yml
-env
+scripts/env
