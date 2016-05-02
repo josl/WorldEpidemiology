@@ -640,10 +640,7 @@ def parse_countries():
         if filename.split('.')[1] != 'csv':
             continue
         with open(path + filename) as f:
-            try:
-                reader = csv.DictReader(f, fieldnames=headers[filename])
-            except:
-                continue
+            reader = csv.DictReader(f, fieldnames=headers[filename])
             first = True
             fao_domains.append({'Domain': filename.split('.')[0]})
             for row in reader:
@@ -669,18 +666,6 @@ def parse_countries():
                         except:
                             print entry['Country']
                         collection.insert_one(entry)
-                        # try:
-                        #     entry = {
-                        #         'Country ID': country_code[row[headers[filename][1]]],
-                        #         'Date': year,
-                        #         'Domain': filename.split('.')[0],
-                        #         'Item': if headers[filename][3] == 'Partner Countries': row[headers[filename][3]],
-                        #         'Element': '',
-                        #         'Unit': row[headers[filename][8]],
-                        #         'Value': row[headers[filename][9]]
-                        #     }
-                        # except:
-                        #     elements.add(row[headers[filename][1]])
                 else:
                     entry['Date'] = row[headers[filename][date_index]]
                     try:
@@ -688,59 +673,35 @@ def parse_countries():
                     except:
                         print entry['Country']
                     collection.insert_one(entry)
-                    # try:
-                    #     entry = {
-                    #         'Country ID': country_code[row[headers[filename][1]]],
-                    #         'Date': row[headers[filename][7]],
-                    #         'Domain': filename.split('.')[0],
-                    #         'Item': row[headers[filename][3]],
-                    #         'Element': '',
-                    #         'Unit': row[headers[filename][8]],
-                    #         'Value': row[headers[filename][9]]
-                    #     }
-                    # except:
-                    #     elements.add(row[headers[filename][1]])
-                # print row
-                # print row[headers[filename][3]]
-                # elements.add(row[headers[filename][3]])
-                # print headers[filename][5], row[headers[filename][5]]
-                # break
-            # break
-        # pprint.pprint(elements)
+
     collection_domains.insert_many(fao_domains)
-    # json_data = json.load(f)
-    # Each entry represents a country + Attribute for several years
-    # for entry in json_data:
-    #     if entry['Country'] not in country_code and entry['Country'] not in excluded:
-    #         pprint.pprint(entry['Country'])
-    #     pprint.pprint(entry)
-    #     if entry["ID"] not in attributes:
-    #         try:
-    #             attributes[entry["ID"]] = entry["Item"]
-    #         except:
-    #             attributes[entry["ID"]] = filename
-    # f.close()
-    # break
-# print attributes
-# for country in data:
-#     for year in data[country]:
-#         entry = {}
-#         entry['id'] = country
-#         try:
-#             entry['name'] = [i for i in country_code if country_code[i] == country][0]
-#         except:
-#             continue
-#         entry['date'] = year
-#         entry['attrs'] = {}
-#         for attr in data[country][year]:
-#             new_attr = attr.replace('.', '-')
-#             sys.stdout.write('Country: ' + entry['id'] + ' # '+ attr + '\r')
-#             entry['attrs'][new_attr] = data[country][year][attr]
-#         mongo_data.append(entry)
-#         # Push to mongodb!
-#         # collection.insert_one(entry)
-#
-# g = open('attr_data/WDI/WDI_csv/WDIJSON.json', 'w')
-# g.write(json.dumps(mongo_data))
-# g.close()
+
+
+def step3():
+    data = []
+    my_countries = {}
+    client = MongoClient('mongodb://localhost:5999/')
+    db = client['topodb']
+    collection = db.WDI_countries
+    collection_indicators = db.WDI_indicators
+    indicators = {}
+    with open('attr_data/WDI/Indicators.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        first = True
+        for row in reader:
+            if first:
+                first = False
+                continue
+            data_point = {}
+            data_point['country-id'] = row['CountryCode']
+            data_point['country-name'] = row['CountryName']
+            data_point['attr-name'] = row['IndicatorName']
+            data_point['attr'] = row['IndicatorCode']
+            data_point['year'] = row['Year']
+            data_point['value'] = row['Value']
+            indicators[row['IndicatorCode']] = row['IndicatorName']
+            collection.insert_one(data_point)
+        collection_indicators.insert_many([{'code': k, 'name': v} for k, v in indicators.items()])
+step3()
+
 parse_countries()
