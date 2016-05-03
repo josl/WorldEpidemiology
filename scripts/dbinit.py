@@ -11,7 +11,7 @@ import pprint
 from pymongo import MongoClient
 import pprint
 from sets import Set
-
+import  urllib2
 
 country_code = {
     'aruba': 'ABW',
@@ -85,6 +85,7 @@ country_code = {
     'czechoslovakia': 'CSK',
     'germany': 'DEU',
     'germany fr': 'DEU',
+    'germany,  federal republic of': 'DEU',
     'djibouti': 'DJI',
     'dominica': 'DMA',
     'denmark': 'DNK',
@@ -147,6 +148,7 @@ country_code = {
     'ireland': 'IRL',
     'iran, islamic rep.': 'IRN',
     'iran (islamic republic of)': 'IRN',
+    'iran': 'IRN',
     'iraq': 'IRQ',
     'iceland': 'ISL',
     'israel': 'ISR',
@@ -625,7 +627,7 @@ headers = {
     'Value_of_Production_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"]
 }
 
-def parse_countries():
+def FAO_init():
     client = MongoClient('mongodb://localhost:5999/')
     db = client['topodb']
     collection = db.FAO_countries
@@ -635,6 +637,7 @@ def parse_countries():
     attributes = {}
     elements = Set()
     fao_domains = []
+    print "Let\'s start with FAO!"
     for filename in os.listdir(path):
         print filename
         if filename.split('.')[1] != 'csv':
@@ -677,16 +680,18 @@ def parse_countries():
     collection_domains.insert_many(fao_domains)
 
 
-def step3():
+def WDI_init():
     data = []
-    my_countries = {}
     client = MongoClient('mongodb://localhost:5999/')
     db = client['topodb']
     collection = db.WDI_countries
     collection_indicators = db.WDI_indicators
     indicators = {}
+    print "Let\'s start with WDI!"
     with open('attr_data/WDI/Indicators.csv', 'r') as csvfile:
+        print "File read"
         reader = csv.DictReader(csvfile)
+        print "CSV parsed"
         first = True
         for row in reader:
             if first:
@@ -700,8 +705,146 @@ def step3():
             data_point['year'] = row['Year']
             data_point['value'] = row['Value']
             indicators[row['IndicatorCode']] = row['IndicatorName']
+            sys.stdout.write('Country: ' + row['CountryCode'] + '\tAttr: ' + row['IndicatorName'] +'\r')
+
             collection.insert_one(data_point)
         collection_indicators.insert_many([{'code': k, 'name': v} for k, v in indicators.items()])
-step3()
 
-parse_countries()
+def parse_flight_data_point(data):
+    # From city / To city / Year / Nb.air carriers / Passenger revenue traffic / Freight revenue traffic (tonnes) / Mail revenue traffic (tonnes)
+    # [u 'AALBORG (DENMARK)', u 'COPENHAGEN (DENMARK)', 2002, u 'Q4', 1, 56159, 8.4, 0.6]
+
+    answer = []
+    for data_point in data:
+        try:
+            country_in = country_code[data_point[0].split('(')[1].strip().replace(')', '').lower()]
+        except:
+            country_in = data_point[0].split('(')[1].strip().replace(')', '').lower()
+        try:
+            country_out = country_code[data_point[1].split('(')[1].strip().replace(')', '').lower()]
+        except:
+            country_out = data_point[1].split('(')[1].strip().replace(')', '').lower()
+        sys.stdout.write('Country I: ' + country_in + '\Country O: ' + country_out + '\r')
+        answer.append({
+            'city-origin': data_point[0].split('(')[0].strip().lower(),
+            'city-destiny': data_point[1].split('(')[0].strip().lower(),
+            'year': data_point[2],
+            'nb-air-carriers': data_point[4],
+            'quarter': data_point[3],
+            'passenger-revenue-traffic': data_point[5],
+            'freight-revenue-traffic_tonnes': data_point[6],
+            'mail-revenue-traffic_tonnes': data_point[7],
+            'country-origin': country_in,
+            'country-destiny': country_out
+        })
+    return answer
+
+def flight_init():
+    data = []
+    client = MongoClient('mongodb://localhost:5999/')
+    db = client['topodb']
+    collection = db.flight_data
+    print "Let\'s start with flight data!"
+    url = 'http://dataplusapi.icao.int/dataplus/formB/basic?year%5B%5D=2016&year%5B%5D=2015&year%5B%5D=2014&year%5B%5D=2013&year%5B%5D=2012&year%5B%5D=2011&year%5B%5D=2010&year%5B%5D=2009&year%5B%5D=2008&year%5B%5D=2007&year%5B%5D=2006&year%5B%5D=2005&year%5B%5D=2004&year%5B%5D=2003&year%5B%5D=2002&year%5B%5D=2001&year%5B%5D=2000&year%5B%5D=1999&year%5B%5D=1998&year%5B%5D=1997&year%5B%5D=1996&year%5B%5D=1995&year%5B%5D=1994&year%5B%5D=1993&year%5B%5D=1992&year%5B%5D=1991&year%5B%5D=1990&year%5B%5D=1989&year%5B%5D=1988&year%5B%5D=1987&year%5B%5D=1986&year%5B%5D=1985&year%5B%5D=1984&year%5B%5D=1983&year%5B%5D=1982&airCarrierId%5B%5D=120336&airCarrierId%5B%5D=120338&airCarrierId%5B%5D=120736&airCarrierId%5B%5D=120519&airCarrierId%5B%5D=15093453&airCarrierId%5B%5D=120442&airCarrierId%5B%5D=120443&airCarrierId%5B%5D=120342&airCarrierId%5B%5D=120201&airCarrierId%5B%5D=19505932&airCarrierId%5B%5D=120347&airCarrierId%5B%5D=8178807&airCarrierId%5B%5D=120444&airCarrierId%5B%5D=120445&airCarrierId%5B%5D=120520&airCarrierId%5B%5D=120446&airCarrierId%5B%5D=120621&airCarrierId%5B%5D=120623&airCarrierId%5B%5D=120521&airCarrierId%5B%5D=120358&airCarrierId%5B%5D=120447&airCarrierId%5B%5D=8714755&airCarrierId%5B%5D=121277&airCarrierId%5B%5D=120449&airCarrierId%5B%5D=120450&airCarrierId%5B%5D=120776&airCarrierId%5B%5D=120263&airCarrierId%5B%5D=121317&airCarrierId%5B%5D=120626&airCarrierId%5B%5D=121324&airCarrierStateId%5B%5D=10614&airCarrierStateId%5B%5D=10637&airCarrierStateId%5B%5D=10763&airCarrierStateId%5B%5D=10643&airCarrierStateId%5B%5D=10603&airCarrierStateId%5B%5D=10663&airCarrierStateId%5B%5D=10621&airCarrierStateId%5B%5D=10696&filterNames%5B%5D=year&filterNames%5B%5D=airCarrierId&filterNames%5B%5D=airCarrierStateId&dimension%5B%5D=from+City&dimension%5B%5D=to+City&dimension%5B%5D=year&dimension%5B%5D=quarter&quarter%5B%5D=Q1&quarter%5B%5D=Q2&quarter%5B%5D=Q3&quarter%5B%5D=Q4&_search=false&nd=1462201101438&rows=20&sidx=from+City&sord=asc'
+    req = urllib2.Request(url + '&page=1')
+    response = urllib2.urlopen(req)
+    json_data = response.read()
+    json_obj = json.loads(json_data)
+    print "Flight json ready!!"
+    # {u'totalPages': 11442, u'totalRecords': 228835, u'page': 1, u'rowsPerPage': 20}
+    pages = json_obj['pagination']['totalPages']
+    print pages
+    data_parsed = parse_flight_data_point(json_obj['data'])
+    collection.insert_many(data_parsed)
+    for page in range(1, pages+1):
+        print page
+        req = urllib2.Request(url + '&page=' + str(page))
+        response = urllib2.urlopen(req)
+        json_data = response.read()
+        json_obj = json.loads(json_data)
+        data_parsed = parse_flight_data_point(json_obj['data'])
+        collection.insert_many(data_parsed)
+
+def ecdc_init():
+    data = []
+    client = MongoClient('mongodb://localhost:5999/')
+    db = client['topodb']
+    collection = db.ECDC
+    indicators = {}
+    print "Let\'s start with ECDC!"
+    with open('attr_data/ECDC/antibacterial_and_antiviral_use_2014_ECDC.json', 'r') as jsonfile:
+        print "File read"
+        json_data = json.load(jsonfile)
+        print "JSON parsed"
+        for entry in json_data:
+            try:
+                entry['country-code'] = country_code[entry['Country'].lower()]
+            except:
+                entry['country-code'] = 'REPLACE'
+            entry_point = {}
+            for (key, value) in entry.items():
+                entry_point[key.replace('.', ' ')] = value
+            collection.insert_one(entry_point)
+
+def who_init():
+
+    file_mapping = {
+        'Age-stand_mort_rate_by_cause_(per100000pop)_WHO.json': {
+            'desc': 'Age-standardized death rate by three major cause groups, both sexes (Data by country)',
+            'url': 'http://apps.who.int/gho/data/view.main.GHEASDRCTRYMAJOR',
+            'id': 'GHEASDRCTRYMAJOR'
+        }
+        'Households_using_an_improved_drinking-water_source_____WHO.json': {
+            'desc': 'Improved drinking-water source (Data by country)',
+            'url': 'http://apps.who.int/gho/data/node.imr.EQ_WATERIMPROVED?lang=en',
+            'id': 4437
+        }
+        'Number_of_reported_cases_of_cholera_WHO.json': {
+            'desc': 'Number of reported cases of cholera (Infectious diseases)',
+            'url': 'http://apps.who.int/gho/data/node.imr.CHOLERA_0000000001?lang=en',
+            'id': 3168
+        }
+        'density_of_hospitals_WHO.json': {
+            'desc': 'Total density per 100 000 population: Hospitals (Health systems)',
+            'url': 'http://apps.who.int/gho/data/node.imr.DEVICES00?lang=en',
+            'id': 3361
+        }
+    }
+    data = []
+    client = MongoClient('mongodb://localhost:5999/')
+    db = client['topodb']
+    collection = db.WHO
+    collection_indicators = db.WHO_indicators
+    non_indicators = ['ID', 'Country', 'Year']
+    print "Let\'s start with WHO!"
+    for filename in os.listdir(path):
+        indicators = set()
+        with open('attr_data/ECDC/' + filename) as f:
+            json_data = json.load(f)
+            print "JSON parsed"
+            file_indicators = set()
+            for entry in json_data:
+                entry_point = {}
+                for (key, value) in entry.items():
+                    if key not in non_indicators:
+                        indicators.add(key)
+                        # attrs = file_mapping[filename]
+                        # attrs['attr'] = key
+                        # indicators.append(attrs)
+                    entry_point[key.replace('.', ' ')] = value
+                try:
+                    entry_point['country-code'] = country_code[entry_point['Country'].lower()]
+                except:
+                    entry_point['country-code'] = 'REPLACE'
+                collection.insert_one(entry_point)
+            collection_indicators.insert_many(
+                [file_mapping[filename].update({'attr': indicator}) for indicator in list(indicators)]
+            )
+
+print "Hello EpiDb fans!"
+
+# ecdc_init()
+flight_init()
+WDI_init()
+FAO_init()
+who_init()
