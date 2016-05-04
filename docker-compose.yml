@@ -31,3 +31,11 @@ mongo:
         - $PWD/attr_data:/usr/attrdata
         - $PWD/db:/src
         - ./noSQL_database/mongod:/data
+notebook:
+    ports:
+        - "7777:8888"
+    image: jupyter/notebook
+    links:
+        - mongo
+    volumes:
+        - $PWD/notebooks:/notebooks
