@@ -557,6 +557,81 @@ excluded_countries = [
 ]
 
 path = 'attr_data/FAO/'
+
+processes_files = [
+    'ASTI_Research_Spending_E_All_Data_(Norm).csv',
+    'ASTI_Researchers_E_All_Data_(Norm).csv',
+    'CommodityBalances_Crops_E_All_Data_(Norm).csv',
+    'CommodityBalances_LivestockFish_E_All_Data_(Norm).csv',
+    'ConsumerPriceIndices_E_All_Data_(Norm).csv',
+    'Deflators_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Agriculture_total_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Burning_Savanna_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Burning_crop_residues_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Crop_Residues_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Cultivated_Organic_Soils_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Energy_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Enteric_Fermentation_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Manure_Management_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Manure_applied_to_soils_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Manure_left_on_pasture_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Rice_Cultivation_E_All_Data_(Norm).csv',
+    'Emissions_Agriculture_Synthetic_Fertilizers_E_All_Data_(Norm).csv',
+    'Emissions_Land_Use_Burning_Biomass_E_All_Data_(Norm).csv',
+    'Emissions_Land_Use_Cropland_E_All_Data_(Norm).csv',
+    'Emissions_Land_Use_Forest_Land_E_All_Data_(Norm).csv',
+    'Emissions_Land_Use_Grassland_E_All_Data_(Norm).csv',
+    'Emissions_Land_Use_Land_Use_Total_E_All_Data_(Norm).csv',
+    'Employment_Indicators_E_All_Data_(Norm).csv',
+    'Environment_AirClimateChange_E_All_Data.csv',
+    'Environment_Energy_E_All_Data.csv',
+    'Environment_Fertilizers_E_All_Data.csv',
+    'Environment_Land_E_All_Data.csv',
+    'Environment_Livestock_E_All_Data.csv',
+    'Environment_Pesticides_E_All_Data.csv',
+    'Environment_Soil_E_All_Data.csv',
+    'Environment_Water_E_All_Data.csv',
+    'Food_Security_Data_E_All_Data_(Norm).csv'
+]
+
+headers_old = {
+    'FoodBalanceSheets_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'FoodSupply_Crops_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'FoodSupply_LivestockFish_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    # 'Food_Aid_Shipments_WFP_E_All_Data_(Norm).csv': ["Recipient Country Code", "Recipient Country", "Item Code", "Item", "Donor Country Code", "Donor Country", "Year Code", "Year", "Unit", "Value", "Flag"],
+    # 'Food_Security_Data_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Forestry_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    # 'Forestry_Trade_Flows_E_All_Data_(Norm).csv': ["Reporter Country Code", "Reporter Countries", "Partner Country Code", "Partner Countries", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Inputs_FertilizersTradeValues_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Inputs_Fertilizers_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Inputs_Land_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Inputs_Pesticides_Trade_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Inputs_Pesticides_Use_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Investment_CapitalStock_E_All_Data.csv': ["CountryCode", "Country", "ItemCode", "Item", "ElementGroup", "ElementCode", "Element", "Year", "Unit", "Value", "Flag"],
+    'Investment_CreditAgriculture_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Investment_GovernmentExpenditure_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Investment_MachineryArchive_E_All_Data.csv': ["CountryCode", "Country", "ItemCode", "Item", "ElementGroup", "ElementCode", "Element", "Year", "Unit", "Value", "Flag"],
+    'Investment_Machinery_E_All_Data.csv': ["CountryCode", "Country", "ItemCode", "Item", "ElementGroup", "ElementCode", "Element", "Year", "Unit", "Value", "Flag"],
+    'Macro-Statistics_Key_Indicators_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Population_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Price_Indices_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'PricesArchive_E_All_Data.csv': ["CountryCode", "Country", "ItemCode", "Item", "ElementGroup", "ElementCode", "Element", "Year", "Unit", "Value", "Flag"],
+    'Prices_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Prices_Monthly_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Months Code", "Months", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_CropsProcessed_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_Crops_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_Indices_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_LivestockPrimary_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_LivestockProcessed_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Production_Livestock_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Resources_FertilizersArchive_E_All_Data.csv': ["CountryCode", "Country", "ItemCode", "Item", "ElementGroup", "ElementCode", "Element", "Year", "Unit", "Value", "Flag"],
+    'Trade_Crops_Livestock_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    # 'Trade_DetailedTradeMatrix_E_All_Data_(Norm).csv': ["Reporter Country Code", "Reporter Countries", "Partner Country Code", "Partner Countries", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Trade_Indices_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Trade_LiveAnimals_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
+    'Value_of_Production_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"]
+}
+
 headers = {
     'ASTI_Research_Spending_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
     'ASTI_Researchers_E_All_Data_(Norm).csv': ["Country Code", "Country", "Item Code", "Item", "Element Code", "Element", "Year Code", "Year", "Unit", "Value", "Flag"],
@@ -643,7 +718,12 @@ def FAO_init():
         if filename.split('.')[1] != 'csv':
             continue
         with open(path + filename) as f:
-            reader = csv.DictReader(f, fieldnames=headers[filename])
+            # if f in processes_files:
+            #     continue
+            try:
+                reader = csv.DictReader(f, fieldnames=headers[filename])
+            except:
+                continue
             first = True
             fao_domains.append({'Domain': filename.split('.')[0]})
             for row in reader:
@@ -651,14 +731,20 @@ def FAO_init():
                 if first or row[headers[filename][1]].lower().decode('latin-1').encode('utf-8') in excluded_countries or row[headers[filename][1]].lower().decode('latin-1').encode('utf-8') in regions:
                     first = False
                     continue
-                sys.stdout.write('Country: ' + country_code[row[headers[filename][1]].lower().decode('latin-1').encode('utf-8')] + '\r')
+                # sys.stdout.write('Country: ' + country_code[row[headers[filename][1]].lower().decode('latin-1').encode('utf-8')] + '\r')
+                sys.stdout.write('Country: ' + row[headers[filename][1]].lower().decode('latin-1').encode('utf-8') + '\r')
                 date_index = headers[filename].index('Year')
                 entry = row
                 for attr in entry:
                     entry[attr] = entry[attr].decode('latin-1').encode('utf-8')
                 country_index = headers[filename].index('Country')
                 entry['Domain'] = filename.split('.')[0]
-                entry['Country ID'] = country_code[row[headers[filename][country_index]].lower()]
+                try:
+                    entry['Country ID'] = country_code[row[headers[filename][country_index]].lower()]
+                except:
+                    print row[headers[filename][country_index]].lower()
+                    entry['Country ID'] = row[headers[filename][country_index]].lower
+                    entry['country-code'] = 'REPLACE'
                 if '-' in row[headers[filename][7]]:
                     dates = range(int(row[headers[filename][date_index]].split(
                         '-')[0]), int(row[headers[filename][date_index]].split('-')[1]))
@@ -668,14 +754,20 @@ def FAO_init():
                             entry['Country'] = entry['Country']
                         except:
                             print entry['Country']
-                        collection.insert_one(entry)
+                        try:
+                            collection.insert_one(entry)
+                        except:
+                            continue
                 else:
                     entry['Date'] = row[headers[filename][date_index]]
                     try:
                         entry['Country'] = entry['Country']
                     except:
                         print entry['Country']
-                    collection.insert_one(entry)
+                    try:
+                        collection.insert_one(entry)
+                    except:
+                        continue
 
     collection_domains.insert_many(fao_domains)
 
@@ -793,17 +885,17 @@ def who_init():
             'desc': 'Age-standardized death rate by three major cause groups, both sexes (Data by country)',
             'url': 'http://apps.who.int/gho/data/view.main.GHEASDRCTRYMAJOR',
             'id': 'GHEASDRCTRYMAJOR'
-        }
+        },
         'Households_using_an_improved_drinking-water_source_____WHO.json': {
             'desc': 'Improved drinking-water source (Data by country)',
             'url': 'http://apps.who.int/gho/data/node.imr.EQ_WATERIMPROVED?lang=en',
             'id': 4437
-        }
+        },
         'Number_of_reported_cases_of_cholera_WHO.json': {
             'desc': 'Number of reported cases of cholera (Infectious diseases)',
             'url': 'http://apps.who.int/gho/data/node.imr.CHOLERA_0000000001?lang=en',
             'id': 3168
-        }
+        },
         'density_of_hospitals_WHO.json': {
             'desc': 'Total density per 100 000 population: Hospitals (Health systems)',
             'url': 'http://apps.who.int/gho/data/node.imr.DEVICES00?lang=en',
@@ -816,10 +908,13 @@ def who_init():
     collection = db.WHO
     collection_indicators = db.WHO_indicators
     non_indicators = ['ID', 'Country', 'Year']
+    path = 'attr_data/WHO/'
+    collection_data = []
     print "Let\'s start with WHO!"
     for filename in os.listdir(path):
         indicators = set()
-        with open('attr_data/ECDC/' + filename) as f:
+        # with open('attr_data/ECDC/' + filename) as f:
+        with open(path + filename) as f:
             json_data = json.load(f)
             print "JSON parsed"
             file_indicators = set()
@@ -836,15 +931,36 @@ def who_init():
                     entry_point['country-code'] = country_code[entry_point['Country'].lower()]
                 except:
                     entry_point['country-code'] = 'REPLACE'
-                collection.insert_one(entry_point)
-            collection_indicators.insert_many(
-                [file_mapping[filename].update({'attr': indicator}) for indicator in list(indicators)]
-            )
+                # collection.insert_one(entry_point)
+            temp = file_mapping[filename]
+            for indicator in list(indicators):
+                new_entry = {}
+                for attr in temp:
+                    new_entry[attr] = temp[attr]
+                new_entry['attr'] = indicator
+                print new_entry
+                collection_data.append(new_entry)
+    import pprint
+    pprint.pprint(collection_data)
+    collection_indicators.insert_many(collection_data)
+                # collection_indicators.insert_one(temp)
+            # print indicators_collection
+            # collection_indicators.insert_many(indicators_collection)
+            # collection_indicators.insert_many(
+            #     [file_mapping[filename].update({'attr': indicator}) for indicator in list(indicators)]
+            # )
 
 print "Hello EpiDb fans!"
 
 # ecdc_init()
-flight_init()
-WDI_init()
-FAO_init()
+# flight_init()
+# WDI_init()
+# FAO_init()
 who_init()
+
+
+# ecdc_init()
+# flight_init()
+# WDI_init()
+# FAO_init()
+# who_init()
