@@ -9,7 +9,7 @@ node:
         - mongo
     volumes:
         - $PWD/attr_data:/data
-        # - $PWD/backend:/code/backend
+        - $PWD/backend:/code/backend
         # - $PWD/backend/time_series:/code/backend/time_series
 mongoexpress:
     image: mongo-express

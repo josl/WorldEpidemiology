@@ -31,11 +31,11 @@ ALLPROVINCES=prov1=geo_data/provinces_topo_A.json prov4=geo_data/provinces_topo_
 all: $(GENERATED_FILES)
 
 geo_data/topoDB.json: geo_data/countries_topo.json geo_data/provinces_topo_A.json geo_data/provinces_topo_B.json geo_data/provinces_topo_C.json geo_data/provinces_topo_D.json
-	$(TOPOJSON) --shapefile-encoding utf8 -o geo_data/topoDB.json -p -- countries=geo_data/countries_topo.json provinces=geo_data/provinces.json
-	cp geo_data/topoDB.json web/.
+	$(TOPOJSON) --quantization 1e5 --stitch-poles false --shapefile-encoding utf8 -o geo_data/topoDB.json -p -- countries=geo_data/countries_topo.json provinces=geo_data/provinces.json
+	cp geo_data/topoDB.json backend/frontend/map.
 
 geo_data/countries_topo.json: $(COUNTRY_PROP) $(JSONCountries)
-	$(TOPOJSON) --shapefile-encoding utf8 -o geo_data/countries_topo.json -e $(COUNTRY_PROP) -p $(PROPERTIES_CO1)$(PROPERTIES_CO2) --id-property=$(COUNTRYID) -- $(JSONCountries)
+	$(TOPOJSON) --stitch-poles false --shapefile-encoding utf8 -o geo_data/countries_topo.json -e $(COUNTRY_PROP) -p $(PROPERTIES_CO1)$(PROPERTIES_CO2) --id-property=$(COUNTRYID) -- $(JSONCountries)
 
 headers:
 	echo "geonameid	name	population	mod_date" | \
@@ -46,13 +46,13 @@ headers:
 	cat - geo_data/provinces_D.tsv > geo_data/provinces_D1.tsv
 
 geo_data/provinces_topo.json: geo_data/provinces.json
-	$(TOPOJSON) -o geo_data/provinces_topo.json -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
+	$(TOPOJSON) --stitch-poles false -o geo_data/provinces_topo.json -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
 
 geo_data/allDataProvinces.json:
-	$(TOPOJSON) -o geo_data/provinces_topo_D.json -e $(PROV_PROP_D) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
-	$(TOPOJSON) -o geo_data/provinces_topo_C.json -e $(PROV_PROP_C) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
-	$(TOPOJSON) -o geo_data/provinces_topo_B.json -e $(PROV_PROP_B) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
-	$(TOPOJSON) -o geo_data/provinces_topo_A.json -e $(PROV_PROP_A) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
+	$(TOPOJSON) --stitch-poles false -o geo_data/provinces_topo_D.json -e $(PROV_PROP_D) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
+	$(TOPOJSON) --stitch-poles false -o geo_data/provinces_topo_C.json -e $(PROV_PROP_C) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
+	$(TOPOJSON) --stitch-poles false -o geo_data/provinces_topo_B.json -e $(PROV_PROP_B) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
+	$(TOPOJSON) --stitch-poles false -o geo_data/provinces_topo_A.json -e $(PROV_PROP_A) -p $(PROPERTIES_PROV1)$(PROPERTIES_PROV2) --id-property=$(PROVINCEID) -- geo_data/provinces.json
 
 geo_data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp:
 	curl -o geo_data/countries.zip 'http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip'
