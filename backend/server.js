@@ -11,11 +11,11 @@ var Console = require('console');
 
 var findDocuments = function (country, db, callback) {
     // Get the documents collection
-    var collection = db.collection('WDI');
+    var collection = db.collection('WDI_countries');
     // Find some documents
     var query = {};
     if (country !== 'all') {
-        query.name = country;
+        query['country-name'] = country;
     }
     collection.find(query)
         .toArray(function (err, docs) {

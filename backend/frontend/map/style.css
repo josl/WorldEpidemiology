@@ -3,8 +3,14 @@
 .subunit.NIR { fill: #cdc; }
 .subunit.ENG { fill: #dcd; }
 
-.country.ESP { fill: #43cf09; stroke: #f00c0c;}
-.country.PR1 { fill: none; stroke: #162be7;}
+.country:hover {
+    stroke: #162be7;;
+}
+
+
+/*.country.ES { fill: #43cf09; stroke: #f00c0c;}*/
+/*.country {stroke: #000000;}*/
+/*.country.PR { fill: none; stroke: #162be7;}*/
 
 tr .host_row.grey{background-color:"#D3D3D3";}
 tr .host_row.light_green{background-color:"#A6D785";}
@@ -69,7 +75,7 @@ svg {
 
 .boundary {
   fill: none;
-  stroke: #fff;
+  stroke: "blue";
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;

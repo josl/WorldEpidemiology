@@ -32,10 +32,20 @@ mongo:
         - $PWD/db:/src
         - ./noSQL_database/mongod:/data
 notebook:
+    image: jupyter/notebook
+    command: "jupyter notebook"
     ports:
         - "7777:8888"
-    image: jupyter/notebook
     links:
         - mongo
     volumes:
         - $PWD/notebooks:/notebooks
+jupyterhub:
+    image: jupyter/jupyterhub
+    command: "jupyterhub --no-ssl"
+    ports:
+        - "7778:8000"
+    links:
+        - mongo
+    # volumes:
+    #     - $PWD/notebooks:/notebooks
