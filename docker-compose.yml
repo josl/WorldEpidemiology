@@ -9,19 +9,25 @@ node:
         - mongo
     volumes:
         - $PWD/attr_data:/data
-        - $PWD/backend:/code/backend
-        # - $PWD/backend/time_series:/code/backend/time_series
+    restart: always
 mongoexpress:
-    image: mongo-express
+    image: mongo-express:latest
     ports:
-        - "8081:8081"
+        - "10080:8081"
     links:
         - mongo
+    volumes:
+        - /etc/ssl/private/servercerts/:/usr/certs
     environment:
         ME_CONFIG_MONGODB_SERVER: mongo
         ME_CONFIG_MONGODB_PORT: 27017
-        ME_CONFIG_BASICAUTH_USERNAME: "root"
-        ME_CONFIG_BASICAUTH_PASSWORD: "test"
+        #ME_CONFIG_BASICAUTH_USERNAME: "CHANGEME!!!"
+        #ME_CONFIG_BASICAUTH_PASSWORD: "CHANGEME!!!"
+        ME_CONFIG_SITE_BASEURL: "/dashboard/"
+        ME_CONFIG_SITE_SSL_ENABLED: "true"
+        ME_CONFIG_SITE_SSL_CRT_PATH: "/usr/certs/STAR_cbs_dtu_dk.crt"
+        ME_CONFIG_SITE_SSL_KEY_PATH: "/usr/certs/STAR_cbs_dtu_dk-private.nopass.key"
+    restart: always
 mongo:
     ports:
         - "5999:27017"
@@ -29,23 +35,18 @@ mongo:
     volumes:
         - $PWD/geo_data:/usr/geodata
         - $PWD/attr_data:/usr/attrdata
-        - $PWD/db:/src
-        - ./noSQL_database/mongod:/data
+        - $PWD/db:/data/db
+    restart: always
 notebook:
-    image: jupyter/notebook
-    command: "jupyter notebook"
     ports:
-        - "7777:8888"
+        - "4434:8888"
+    image: jupyter/datascience-notebook
+    user: root
+    environment:
+        NB_UID: 1003
+        GRANT_SUDO: "yes"
     links:
         - mongo
     volumes:
-        - $PWD/notebooks:/notebooks
-jupyterhub:
-    image: jupyter/jupyterhub
-    command: "jupyterhub --no-ssl"
-    ports:
-        - "7778:8000"
-    links:
-        - mongo
-    # volumes:
-    #     - $PWD/notebooks:/notebooks
+        - $PWD/notebooks:/home/jovyan/work
+    restart: always
