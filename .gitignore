@@ -41,3 +41,4 @@ npm-debug.log
 # Production/Development
 docker-compose-prod.yml
 scripts/env
+certs
